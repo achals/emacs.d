@@ -41,6 +41,8 @@
 (color-theme-initialize)
 (color-theme-dark-laptop)
 
+(require 'python-mode)                                    
+
 (setq-default tab-width 4)
 (defun my-c++-indent-setup ()
   (setq c-basic-offset 4)
