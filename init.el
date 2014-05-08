@@ -33,6 +33,14 @@
   ;; If there is more than one, they won't work right.
  )
 
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
@@ -41,9 +49,23 @@
 (color-theme-initialize)
 (color-theme-dark-laptop)
 
-(require 'python-mode)                                    
+(require 'python-mode)
 
 (setq-default tab-width 4)
 (defun my-c++-indent-setup ()
   (setq c-basic-offset 4)
   (setq indent-tabs-mode nil))
+
+(custom-set-variables
+  '(eclim-eclipse-dirs "/apollo/env/eclipse-4.2/var/eclipse")
+  '(eclim-executable "/apollo/env/eclipse-4.2/var/eclipse/eclim" ))
+
+;; regular auto-complete initialization
+(require 'auto-complete-config)
+(ac-config-default)
+
+(require 'eclimd)
+
+;; add the emacs-eclim source
+(require 'ac-emacs-eclim-source)
+(ac-emacs-eclim-config)
