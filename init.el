@@ -41,6 +41,16 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
+(defvar my-packages '(better-defaults
+                      projectile
+                      clojure-mode
+                      cider
+                      color-theme
+                      python-mode))
+(dolist (p my-packages)
+  (unless (package-installed-p p)
+    (package-install p)))
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
@@ -56,16 +66,6 @@
   (setq c-basic-offset 4)
   (setq indent-tabs-mode nil))
 
-(custom-set-variables
-  '(eclim-eclipse-dirs "/apollo/env/eclipse-4.2/var/eclipse")
-  '(eclim-executable "/apollo/env/eclipse-4.2/var/eclipse/eclim" ))
-
 ;; regular auto-complete initialization
 (require 'auto-complete-config)
 (ac-config-default)
-
-(require 'eclimd)
-
-;; add the emacs-eclim source
-(require 'ac-emacs-eclim-source)
-(ac-emacs-eclim-config)
